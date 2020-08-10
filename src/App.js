@@ -8,7 +8,7 @@ function App() {
   const subject = ["Kaitlyn", "Joanne", "Cathy"];
 
   var subject_array = ["Kaitlyn", "Cathy", "Joanne", "coffee", "boba tea", "chocolate", "pizza", "dumpling", "noodle"]
-  var verb_array = ["enjoys", "tastes", "drinks"]
+  var verb_array = ["eats", "drinks"]
  
   const array = subject[0]
   Math.floor((Math.random()*2)+1);
