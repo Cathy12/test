@@ -31,6 +31,7 @@ function App() {
   // const [ver, setVer] = useState([])
   const [itemText, setItemText] = useState("")
   const [verbText, setVerbText] = useState("")
+  const [removeWords, setRemoveWords] = useState(false)
 
   
 console.log(itemText)
@@ -41,22 +42,25 @@ console.log(itemText)
     const newVer = ver.filter(x => x != verb)
 
     if (newSub.length === 0|| newVer.length === 0){
-      setSub(newSub) 
-      setVer(newVer)
-      return
+      if (removeWords) {
+        setSub(newSub) 
+        setVer(newVer)
+        return
+      }    
     }
 
     //def variable(on top)
     
-    const aVerb  = newVer[Math.floor(Math.random() * newVer.length)]
-    const aSub  = newSub[Math.floor(Math.random() * newSub.length)]
+    const aVerb  = removeWords ? newVer[Math.floor(Math.random() * newVer.length)] : ver[Math.floor(Math.random() * ver.length)]
+    const aSub  = removeWords ? newSub[Math.floor(Math.random() * newSub.length)] : sub[Math.floor(Math.random() * sub.length)]
     
     const sentence = `${obj} ${aVerb} ${aSub}`
   
     setSentences([...sentences, sentence])
- 
-    setSub(newSub)
-    setVer(newVer)
+    if (removeWords) {
+      setSub(newSub)
+      setVer(newVer)
+    }
     
     // Set name to previous obj
     setName(obj)
@@ -76,6 +80,9 @@ console.log(itemText)
     setVer([...ver, verbText])
     setVerbText("")
   }
+
+  console.log(ver)
+  console.log(removeWords)
   return (
     <div className="App" style={{margin: '50px', backgroundColor: '#cfe8fc'}}>
       <div>
@@ -91,6 +98,11 @@ console.log(itemText)
       <div>
         <input type="text" value={verbText} onChange={(e) => { setVerbText(e.target.value)}} />
         <button onClick={handleVerbSubmit} >Add a verb</button> 
+      </div>
+
+      <div>
+        <input type="checkbox" value={removeWords} onChange={(e) => { setRemoveWords(!removeWords)}} />
+        <span>Remove verbs and objects that are used</span>
       </div>
 
       <p>Click to see the solitaire</p >
