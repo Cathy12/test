@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import Checkbox from '@material-ui/core/Checkbox';
 
 function App() {
 
@@ -50,10 +51,16 @@ console.log(itemText)
     }
 
     //def variable(on top)
-    
+    // For situation where remove words to empty, then not remove words
+    if (sub.length === 0 || ver.length === 0){
+      return
+    }
     const aVerb  = removeWords ? newVer[Math.floor(Math.random() * newVer.length)] : ver[Math.floor(Math.random() * ver.length)]
     const aSub  = removeWords ? newSub[Math.floor(Math.random() * newSub.length)] : sub[Math.floor(Math.random() * sub.length)]
     
+    // const aVerb  = newVer[Math.floor(Math.random() * newVer.length)]
+    // const aSub  = newSub[Math.floor(Math.random() * newSub.length)]
+
     const sentence = `${obj} ${aVerb} ${aSub}`
   
     setSentences([...sentences, sentence])
@@ -91,14 +98,19 @@ console.log(itemText)
 
       <p>List of Items: {sub.join(", ")} </p >
       <p>Verbs to choose from: {ver.join(", ")} </p >
-      <div>
+      <div style={{margin: "5px"}}>
         <input type="text" value={itemText} onChange={(e) => { setItemText(e.target.value)}} />
         <button onClick={handleItemSubmit} >Add an item</button>     
       </div>
-      <div>
+      <div style={{margin: "5px"}}>
         <input type="text" value={verbText} onChange={(e) => { setVerbText(e.target.value)}} />
         <button onClick={handleVerbSubmit} >Add a verb</button> 
       </div>
+
+      {/* <div>
+        <input type="checkbox" value={removeWords} onChange={(e) => { setRemoveWords(!removeWords)}} />
+        <span>Remove verbs and objects that are used</span>
+      </div> */}
 
       <div>
         <input type="checkbox" value={removeWords} onChange={(e) => { setRemoveWords(!removeWords)}} />
